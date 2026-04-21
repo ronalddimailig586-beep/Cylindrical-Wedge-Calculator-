@@ -1,41 +1,49 @@
-<?xml version='1.0' encoding='utf-8'?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>RCW.cs</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedge Volume Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-  <body class="calibre">
-<p class="calibre1">using System;</p>
-<p class="calibre1"> </p>
-<p class="calibre2">class Program</p>
-<p class="calibre1">{</p>
-<p class="calibre1">static double CylindricalWedgeVolume(double r, double h) {</p>
-<p class="calibre1">// STANDARD FORMULA: V = (2/3) * r² * h return (2.0 / 3.0) * r * r * h;</p>
-<p class="calibre1">}</p>
-<p class="calibre1"> </p>
-<p class="calibre1">static void Main()</p>
-<p class="calibre1">{</p>
-<p class="calibre1">char choice; // ← ADDED for user choice do</p>
-<p class="calibre1">{</p>
-<p class="calibre1">double radius, height; // ← MOVED inside loop Console.WriteLine(“=== Right Circular Cylindrical Wedge Volume Calculator ===”); Console.WriteLine(“=========================================================”); Console.WriteLine(“📐 Formula: V = (2/3) × r² × h”); // Input validation loop</p>
-<p class="calibre2">do</p>
-<p class="calibre1">{</p>
-<p class="calibre1">Console.Write(“\nEnter radius (r) of cylinder (cm): “); if (double.TryParse(Console.ReadLine(), out radius) &amp;&amp; radius &gt; 0) break;</p>
-<p class="calibre1">Console.WriteLine(“❌ Radius must be positive!”); } while (true);</p>
-<p class="calibre1"> </p>
-<p class="calibre1">// Input validation loop</p>
-<p class="calibre2">do</p>
-<p class="calibre1">{</p>
-<p class="calibre1">Console.Write(“Enter height (h) of wedge (cm): “); if (double.TryParse(Console.ReadLine(), out height) &amp;&amp; height &gt; 0) break;</p>
-<p class="calibre1">Console.WriteLine(“❌ Height must be positive!”); } while (true);</p>
-<p class="calibre1"> </p>
-<p class="calibre1">// Calculate volume</p>
-<p class="calibre1">double volume = CylindricalWedgeVolume(radius, height); // Display results</p>
-<p class="calibre1">Console.WriteLine(“\n” + new string(‘=’, 55)); Console.WriteLine(“RESULTS:”);</p>
-<p class="calibre1">Console.WriteLine(“––—”);</p>
-<p class="calibre1">Console.WriteLine($“Radius (r) = {radius,8:F4} cm”); Console.WriteLine($“Height (h) = {height,8:F4} cm”); Console.WriteLine($“Volume = {volume,8:F4} cm³”); Console.WriteLine(new string(‘=’, 55)); // ← ADDED: Calculate again choice Console.Write(“\nCalculate again? (y/n): “); choice = Console.ReadKey().KeyChar; Console.WriteLine(“\n”); // Extra newline for clean screen } while (choice == ‘y’ || choice == ‘Y’); Console.WriteLine(“👋 Thanks for using the calculator!”); Console.ReadKey(); // Pause before exit }</p>
-<p class="calibre1">}</p>
+<body>
 
-</body></html>
+<div class="card">
+    <h2>📐Cylindrical Wedge Calculator</h2>
+    <p>Calculate the volume of a cylindrical wedge.</p>
+    
+    <div class="input-group">
+        <label>Radius (r) cm</label>
+        <input type="number" id="radius" placeholder="e.g. 5" step="any">
+    </div>
+    
+    <div class="input-group">
+        <label>Height (h) cm</label>
+        <input type="number" id="height" placeholder="e.g. 12" step="any">
+    </div>
+    
+    <button onclick="calculate()">Calculate Now</button>
+
+    <div id="result">
+        <div class="label">VOLUME RESULT</div>
+        <div class="value"><span id="volumeValue">0</span> cm³</div>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        const r = parseFloat(document.getElementById('radius').value);
+        const h = parseFloat(document.getElementById('height').value);
+        
+        if (r > 0 && h > 0) {
+            const volume = (2/3) * Math.pow(r, 2) * h;
+            document.getElementById('volumeValue').innerText = volume.toFixed(4);
+            document.getElementById('result').style.display = 'block';
+        } else {
+            alert("Please enter positive numbers.");
+        }
+    }
+</script>
+
+</body>
+</html>
